@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/Ordinary.cshtml";
+    ViewData["Title"] = "DictAdd";
+}
+@section css{
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/public.css" rel="stylesheet" />
+}
+<div style="padding:20px;">
+    <form class="layui-form" style="width:80%;">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">分类编号<i style="color:red;">*</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input type_code" lay-verify="required|type_code" placeholder="请输入分类编号" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">分类名称<i style="color:red;">*</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input type_name" lay-verify="required" placeholder="请输入分类名称" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">子类编号<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input code" lay-verify="required" placeholder="请输入子类编号" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">子类名称<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input name" lay-verify="required" placeholder="请输入子类名称" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">子类值<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input code_value" lay-verify="qq" placeholder="请输入子类值" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">子类排序<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input code_sort" placeholder="请输入子类排序" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <label class="layui-form-label">备注<i>&nbsp;</i></label>
+            <div class="layui-input-block">
+                <textarea placeholder="备注" class="layui-textarea remark"></textarea>
+            </div>
+        </div>
+        <input type="text" style="display:none;" class="dict_id">
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <div class="layui-input-block">
+                @Html.AntiForgeryToken()
+                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addDict">保存</button>
+                <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="~/lib/main.js"></script>
+<script src="~/lib/require/require.js" data-main="../js/Areas/SystemManager/Dict/DictAdd"></script>

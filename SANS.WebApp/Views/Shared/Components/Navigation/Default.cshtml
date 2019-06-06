@@ -1,0 +1,51 @@
+﻿@model List<SANS.BLL.SysMenuDto>
+<ul id="nav">
+    @foreach (var item1 in Model)
+    {
+        <li>
+            <a href="javascript:;">
+                <i class="layui-icon @item1.MenuIcon"></i>
+                <cite>@item1.MenuName</cite>
+                <i class="iconfont nav_right">&#xe697;</i>
+            </a>
+            @if (item1.children.Count > 0)
+            {
+                <ul class="sub-menu">
+                    @foreach (var item2 in item1.children)
+                    {
+                        if (item2.children.Count > 0)
+                        {
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="layui-icon @item2.MenuIcon"></i>
+                                    <cite>@item2.MenuName</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i>
+                                </a>
+                                <ul class="sub-menu">
+                                    @foreach (var item3 in item2.children)
+                                    {
+                                        <li>
+                                            <a _href="@item3.MenuUrl?oid=@item2.MenuId">
+                                                <i class="layui-icon @item3.MenuIcon"></i>
+                                                <cite>@item3.MenuName</cite>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a _href="@item2.MenuUrl?oid=@item2.MenuId">
+                                    <i class="layui-icon @item2.MenuIcon"></i>
+                                    <cite>@item2.MenuName</cite>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            }
+        </li>
+    }
+</ul>

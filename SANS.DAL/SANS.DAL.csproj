@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Implements\BusinessAlarmDAL.cs" />
+    <Compile Remove="Implements\BusinessCycleResultDAL.cs" />
+    <Compile Remove="Implements\BusinessLogDAL.cs" />
+    <Compile Remove="Implements\BusinessReportConfigDAL.cs" />
+    <Compile Remove="Implements\BusinessReportDAL.cs" />
+    <Compile Remove="Implements\BusinessReportTemplateDAL.cs" />
+    <Compile Remove="Implements\BusinessSoftStateDAL.cs" />
+    <Compile Remove="Implements\BusinessSymbolDAL.cs" />
+    <Compile Remove="Implements\BusinessTMCEventDAL.cs" />
+    <Compile Remove="Interface\IBusinessAlarmDAL.cs" />
+    <Compile Remove="Interface\IBusinessCycleResultDAL.cs" />
+    <Compile Remove="Interface\IBusinessLogDAL.cs" />
+    <Compile Remove="Interface\IBusinessReportConfigDAL.cs" />
+    <Compile Remove="Interface\IBusinessReportDAL.cs" />
+    <Compile Remove="Interface\IBusinessReportTemplateDAL.cs" />
+    <Compile Remove="Interface\IBusinessSoftStateDAL.cs" />
+    <Compile Remove="Interface\IBusinessSymbolDAL.cs" />
+    <Compile Remove="Interface\IBusinessTMCEventDAL.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SANS.Common\SANS.Common.csproj" />
+    <ProjectReference Include="..\SANS.DbEntity\SANS.DbEntity.csproj" />
+    <ProjectReference Include="..\SANS.Log\SANS.Log.csproj" />
+  </ItemGroup>
+
+</Project>

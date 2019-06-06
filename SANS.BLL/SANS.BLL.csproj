@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Implements\BusinessAlarmBLL.cs" />
+    <Compile Remove="Implements\BusinessCycleResultBLL.cs" />
+    <Compile Remove="Implements\BusinessLogBLL.cs" />
+    <Compile Remove="Implements\BusinessReportBLL.cs" />
+    <Compile Remove="Implements\BusinessReportConfigBLL.cs" />
+    <Compile Remove="Implements\BusinessReportTemplateBLL.cs" />
+    <Compile Remove="Implements\BusinessSoftStateBLL.cs" />
+    <Compile Remove="Implements\BusinessSymbolBLL.cs" />
+    <Compile Remove="Implements\BusinessTMCEventBLL.cs" />
+    <Compile Remove="Interface\IBusinessAlarmBLL.cs" />
+    <Compile Remove="Interface\IBusinessCycleResultBLL.cs" />
+    <Compile Remove="Interface\IBusinessLogBLL.cs" />
+    <Compile Remove="Interface\IBusinessReportBLL.cs" />
+    <Compile Remove="Interface\IBusinessReportConfigBLL.cs" />
+    <Compile Remove="Interface\IBusinessReportTemplateBLL.cs" />
+    <Compile Remove="Interface\IBusinessSoftStateBLL.cs" />
+    <Compile Remove="Interface\IBusinessSymbolBLL.cs" />
+    <Compile Remove="Interface\IBusinessTMCEventBLL.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SANS.Common\SANS.Common.csproj" />
+    <ProjectReference Include="..\SANS.DAL\SANS.DAL.csproj" />
+    <ProjectReference Include="..\SANS.DbEntity\SANS.DbEntity.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/Ordinary.cshtml";
+    ViewData["Title"] = "菜单管理";
+
+}
+@section css{
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/lib/ztree/bootstrapStyle/bootstrapStyle.css" rel="stylesheet" />
+}
+<div style="padding:20px;">
+    <div style="padding: 20px; background-color: #F2F2F2;height:100%">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">菜单</div>
+                    <div class="layui-card-body">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="zhouliMenu.loadMenu()">
+                            <i class="layui-icon">&#xe669;</i> 刷新菜单树
+                        </button>
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="addRootNode()">
+                            <i class="layui-icon">&#xe654;</i> 添加同级节点
+                        </button>
+                        <ul id="treeMenu" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">操作</div>
+                    <div class="layui-card-body">
+                        <form class="layui-form layui-form-pane" action="" lay-filter="menuop">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单名称<i style="color:red;">*</i></label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="MenuName" id="MenuName" lay-verify="required" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单ID<i style="color:red;">*</i></label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="MenuId" id="MenuId" lay-verify="required" disabled class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">父级菜单ID</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ParentMenuId" id="ParentMenuId" disabled class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单类型</label>
+                                <div class="layui-input-block menuType">
+                                    <input type="radio" name="MenuType" value="0" title="目录" checked="">
+                                    <input type="radio" name="MenuType" value="1" title="菜单">
+                                    <input type="radio" name="MenuType" value="2" title="按钮">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单Url</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="MenuUrl" id="MenuUrl" autocomplete="off" placeholder="请输入菜单Url" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单排序号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="MenuSort" id="MenuSort" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单图标</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="MenuIcon" id="MenuIcon" autocomplete="off" placeholder="请点击此处选择图标" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="请输入备注" name="Note" id="Note" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                @*<button class="layui-btn" type="button" id="addRootnode">
+                                        <i class="layui-icon">&#xe608;</i>添加根节点
+                                    </button>
+                                    <button class="layui-btn layui-btn-normal" id="addSubnode" lay-filter="saveMenu" type="button" >
+                                        <i class="layui-icon">&#xe669;</i>添加子节点
+                                    </button>*@
+                                <button class="layui-btn layui-btn-warm" lay-submit lay-filter="saveMenu">
+                                    <i class="layui-icon">&#xe605;</i>保存
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/ztree/js/jquery.min.js"></script>
+<script src="~/lib/ztree/js/jquery.ztree.core.min.js"></script>
+<script src="~/lib/ztree/js/jquery.ztree.excheck.min.js"></script>
+<script src="~/lib/ztree/js/jquery.ztree.exedit.min.js"></script>
+<script src="~/lib/layui/layui.js"></script>
+<script src="~/js/Areas/SystemManager/Menu/MenuCtrl.js"></script>

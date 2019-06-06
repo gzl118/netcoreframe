@@ -1,0 +1,134 @@
+﻿@{
+    Layout = "~/Views/Shared/Ordinary.cshtml";
+    ViewData["Title"] = "test";
+
+}
+@section css{
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/public.css" rel="stylesheet" />
+}
+<div>
+    @*<input type="button" id="btntest" value="transform" class="layui-btn" data-type="parseTable" />*@
+    <blockquote class="layui-elem-quote quoteBox">
+        <div class="layui-form">
+            <div class="layui-inline">
+                <a class="layui-btn search_btn">批量执行</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn search_btn  layui-btn-danger">批量停止</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn search_btn layui-btn-normal">批量暂停</a>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn search_btn  layui-btn-warm">批量继续</a>
+            </div>
+        </div>
+    </blockquote>
+</div>
+<div>
+    <table lay-filter="parse-table-demo" class="layui-table">
+        <thead>
+            <tr>
+                <th lay-data="{type:'checkbox', width:80}"></th>
+                <th lay-data="{field:'a1', width:200, align: 'center'}">序号</th>
+                <th lay-data="{field:'a2', width:200, align: 'center'}">操作</th>
+                <th lay-data="{field:'a3', width:150, align: 'center'}">执行时间</th>
+                <th lay-data="{field:'a4', minWidth: 180, align: 'center'}">描述</th>
+                <th lay-data="{field:'a5', minWidth: 180, align: 'center'}">遥控</th>
+                <th lay-data="{field:'a6', minWidth: 180, align: 'center'}">遥测</th>
+                <th lay-data="{field:'a7', minWidth: 80, align: 'center'}">参数</th>
+                <th lay-data="{field:'a8', minWidth: 80, align: 'center'}">数据</th>
+                <th lay-data="{templet: '#roleListBar', fixed: 'right', align: 'center',width:200}">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>label</td>
+                <td>2019-01-18 14:25:30</td>
+                <td>Turn on PVC-B</td>
+                <td>00336</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>执行</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>send</td>
+                <td>2019-01-19 14:25:30</td>
+                <td>00302:太阳敏感器A通B断</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>D803</td>
+                <td>执行</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>3</td>
+                <td>vertify</td>
+                <td>2019-01-19 16:45:30</td>
+                <td>ZK11.B4:SSE-A电源状态(AOCE)</td>
+                <td>00336</td>
+                <td></td>
+                <td></td>
+                <td>C1C5</td>
+                <td>执行</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>4</td>
+                <td>if</td>
+                <td></td>
+                <td></td>
+                <td>00353</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>执行</td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/html" id="roleListBar">
+        <a class="layui-btn layui-btn-xs" lay-event="excute">执行</a>
+        <a class="layui-btn layui-btn-xs  layui-btn-danger" lay-event="stop">停止</a>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="pause">暂停</a>
+        <a class="layui-btn layui-btn-xs  layui-btn-warm" lay-event="continue">继续</a>
+    </script>
+</div>
+<br />
+@*<blockquote class="layui-elem-quote quoteBox">
+        <div class="layui-form">
+            <div class="layui-inline">
+                <a class="layui-btn search_btn">消息执行情况</a>
+            </div>
+        </div>
+    </blockquote>*@
+<div class="layui-col-md6">
+    <div class="layui-card">
+        <div class="layui-card-header"><strong>消息执行情况</strong></div>
+        <div class="layui-card-body">
+            <p style="color:green;">"Turn on PVC-B"执行成功！</p>
+            <p style="color:red;">"00302:太阳敏感器A通B断"执行失败！</p>
+            <p style="color:orange;">"ZK11.B4:SSE-A电源状态(AOCE)"正在执行！</p><br>
+            <br><br><br><br><br><br>
+        </div>
+    </div>
+</div>
+<div id="ApprovePerson" class="layui-form" style="display:none;width:200px;height:60px;text-align:center;margin-top:20px;">
+    <div style="margin-top:10px;">
+        <input type="checkbox" value="张三" checked="checked" title="张三" lay-skin="primary" disabled />
+        <input type="checkbox" value="李四" title="李四" lay-skin="primary" />
+    </div>
+    <div style="margin-top:10px;">
+        <input type="checkbox" value="王五" title="王五" lay-skin="primary" />
+        <input type="checkbox" value="赵柳" title="赵柳" lay-skin="primary" />
+    </div>
+</div>
+<script src="~/lib/main.js"></script>
+<script src="~/lib/require/require.js" data-main="../js/Areas/SystemManager/Role/StaticZLView"></script>
+

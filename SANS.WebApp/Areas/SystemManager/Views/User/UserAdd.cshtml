@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/Ordinary.cshtml";
+    ViewData["Title"] = "UserAdd";
+}
+@section css{
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/public.css" rel="stylesheet" />
+}
+<div style="padding:20px;">
+    <form class="layui-form" style="width:80%;" lay-filter="userform">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名<i style="color:red;">*</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userName" lay-verify="required|username" placeholder="请输入用户名" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">昵称<i style="color:red;">*</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userNikeName" lay-verify="required" placeholder="请输入昵称" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">邮箱<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userEmail" lay-verify="email" placeholder="请输入邮箱" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">手机号<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userPhone" lay-verify="phone" placeholder="请输入手机号" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">QQ<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userQq" lay-verify="qq" placeholder="请输入QQ" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">微信<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userWx" placeholder="请输入微信" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">Uas标识<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input uasSub" placeholder="请Uas用户标识" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">性别<i>&nbsp;</i></label>
+                <div class="layui-input-block userSex">
+                    <input type="radio" name="sex" value="1" title="男" checked />
+                    <input type="radio" name="sex" value="0" title="女" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <div class="layui-inline">
+                <label class="layui-form-label">出生日期<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input userBirthday" placeholder="出生日期" />
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态<i>&nbsp;</i></label>
+                <div class="layui-input-block">
+                    <input type="hidden" id="userStatus" value="1" />
+                    <input type="checkbox" name="userStatus" lay-skin="switch" lay-text="正常|停用" checked="" lay-filter="userStatusSwitch" />
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <label class="layui-form-label">所属用户组<i>&nbsp;</i></label>
+            <div class="layui-input-block ">
+                <select lay-search class="userGroupId">
+                    <option value="">请选择</option>
+                    @{
+                        foreach (var item in ViewBag.UserGroupList)
+                        {
+                            <option value="@item.UserGroupId">@item.UserGroupName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <label class="layui-form-label">备注<i>&nbsp;</i></label>
+            <div class="layui-input-block">
+                <textarea placeholder="备注" class="layui-textarea note"></textarea>
+            </div>
+        </div>
+        <input type="text" style="display:none;" class="userId">
+        <div class="layui-form-item layui-row layui-col-xs12">
+            <div class="layui-input-block">
+                @Html.AntiForgeryToken()
+                <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="addUser">保存</button>
+                <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="~/lib/main.js"></script>
+<script src="~/lib/require/require.js" data-main="../js/Areas/SystemManager/User/UserAdd"></script>

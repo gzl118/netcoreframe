@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/Ordinary.cshtml";
+    ViewData["Title"] = "用户管理";
+
+}
+@section css{
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/public.css" rel="stylesheet" />
+}
+<div style="padding:10px;">
+    <input type="hidden" id="menuoid" value="@ViewBag.MenuOid" />
+    <form class="layui-form">
+        <blockquote class="layui-elem-quote quoteBox">
+            <div class="layui-form">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input searchVal" style="font-size:12px" placeholder="用户名" />
+                    </div>
+                    <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                </div>
+            </div>
+        </blockquote>
+        <table id="userList" lay-filter="userList"></table>
+        <!--操作-->
+        <script type="text/html" id="userListBar">
+        </script>
+    </form>
+</div>
+<script src="~/lib/main.js"></script>
+<script src="~/lib/require/require.js" data-main="../js/Areas/SystemManager/User/UserCtrl"></script>

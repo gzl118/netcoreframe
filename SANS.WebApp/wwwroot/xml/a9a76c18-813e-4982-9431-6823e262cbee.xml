@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<procedure xmlns="http://www.example.org/testcase">
+    <specification name="East-West stationkeeping" reference="" serialNumber="SKM0001" version="V1.3_Manual NM 20160606" signature="Jessica" scope="all"/>
+    <manual>应用于东西位保</manual>
+    <variables>
+        <variable name="$C0" type="database" description="C0" value="C1C5" source="yawz0_0" validate="" regExp=""/>
+        <variable name="$C1" type="database" description="C1" value="8D65" source="yawz0_1" validate="" regExp=""/>
+        <variable name="$C2" type="database" description="C2" value="B7FE" source="yawczt_0" validate="" regExp=""/>
+        <variable name="$C3" type="database" description="c3" value="87B4" source="yawczt_1" validate="" regExp=""/>
+        <variable name="$C4" type="database" description="c4" value="3E89" source="yawczx_0" validate="" regExp=""/>
+        <variable name="$C5" type="database" description="c5" value="1CDB" source="yawczx_1" validate="" regExp=""/>
+        <variable name="$C6" type="database" description="c6" value="3DF4" source="yawczy_0" validate="" regExp=""/>
+        <variable name="$C7" type="database" description="c7" value="1591" source="yawczy_1" validate="" regExp=""/>
+        <variable name="$FIRE_BEGIN_TIME" type="database" description="FIRE_BEGIN_TIME" value="2018-07-10 15:24:48" source="beginepoch" validate="" regExp=""/>
+        <variable name="$FIRE_END_TIME" type="database" description="FIRE_END_TIME" value="2018-07-10 16:35:12" source="endepoch" validate="" regExp=""/>
+        <variable name="$FIRE" type="database" description="direction,pulsenumber" value="202B" source="direction,pulsenumber" validate="" regExp=""/>
+        <variable name="$YAWZ0" type="database" description="偏航系数Z0" value="-24.694039773615312" source="yawz0" validate="" regExp=""/>
+        <variable name="$DIRECTION" type="database" description="点火方向" value="4" source="direction" validate="" regExp=""/>
+        <variable name="$PULSENUMBER" type="database" description="点火次数" value="43" source="pulsenumber" validate="" regExp=""/>
+    </variables>
+    <body>        
+        <step stepId="1cb9274e-646d-4b5c-9a44-ba5379d7e024" title="label" event="Transfer to NM, sub mode 0">
+            <children stepId="7454f25e-6c5b-4471-994b-85b82d522872" title="send" event="00350:OBC-TC1遥控字" tc="00350" data="0000"/>
+            <children stepId="ad177ef5-e8f6-4faa-aedb-a822d4cd6bc5" title="send" event="00350:OBC-TC1遥控字" tc="00350" data="0000"/>
+            <children stepId="89ee43fd-eb0b-4f20-a365-da755e1d66d2" title="send" event="00350:OBC-TC1遥控字" tc="00350" data="F0F0"/>
+            <children stepId="c9d7bb04-c8a5-4bca-9d73-0b13d77873da" title="send" event="00352:OBC-TC3遥控字" tc="00352" data="A000"/>
+            <children stepId="6845235c-8e88-45a9-a11b-ae655f537596" title="send" event="00352:OBC-TC3遥控字" tc="00352" data="F0F0"/>
+            <children stepId="6035a7e9-0dc7-45e2-9ec9-ea7af0e0a840" title="send" event="00352:OBC-TC3遥控字" tc="00352" data="A0FF"/>
+            <children stepId="3bed4686-22c4-4dd6-b542-7ec62fd9b163" title="send" event="00352:OBC-TC3遥控字" tc="00352" data="F0F0"/>
+            <children stepId="c84437fb-87ca-4458-9f5a-af21cf22f8a9" title="verify" event="ZK20:模式字(AOCE)" tm="[ZK20]==0"/>
+            <children stepId="4779f48e-5133-4212-b03b-5afa509dbb3f" title="verify" event="ZK118:模式字" tm="[ZK118]==0"/>
+            <children stepId="d0e63b34-3c20-4fb0-96b8-061846d1a349" title="verify" event="ZK119:方式字" tm="[ZK119]==0"/>
+            <children stepId="23a04d44-0adb-4476-9328-c2dc14f13f58" title="label" event="get the system time when transfer to NM000">
+                <children stepId="533f9291-1dc6-425a-aed9-290c17809fa1" title="verify" event="ZK102:地球滚动角ES1(快帧)" tm="[ZK102]&gt;-0.1&amp;&amp;[ZK102]&lt;0.1"/>
+                <children stepId="af9fcb48-4bec-4844-a839-f88cfe828ea3" title="verify" event="ZK105:地球俯仰角ES2(快帧)" tm="[ZK105]&gt;-0.1&amp;&amp;[ZK105]&lt;0.1"/>
+            </children>
+        </step>
+        <step stepId="f89db851-07d4-42f6-af9a-2637d5484f6c" title="label" event="Recording thrusters on-time accumulation">
+            <children stepId="6b0d7166-bbb8-46bd-a73f-ec52aaeb06a2" title="record" event="ZK151:2A推力器脉冲计时" tm="[ZK151]"/>
+            <children stepId="b9a22689-c4ca-4f37-9600-b6f7b95109fc" title="record" event="ZK152:3A推力器脉冲计时" tm="[ZK152]"/>
+            <children stepId="c05e140b-63e6-4ef4-98dc-fd806d8b31c5" title="record" event="ZK153:4A推力器脉冲计时" tm="[ZK153]"/>
+            <children stepId="3c393890-2cba-4cb3-89dd-4693ca0aa7dd" title="record" event="ZK154:5A推力器脉冲计时" tm="[ZK154]"/>
+            <children stepId="3f6f927e-c61d-4f31-b0f1-d65b78beb907" title="record" event="ZK155:6A推力器脉冲计时" tm="[ZK155]"/>
+            <children stepId="494c48a9-b33e-47fe-bc0f-8c2d0e246a93" title="record" event="ZK156:7A推力器脉冲计时" tm="[ZK156]"/>
+            <children stepId="5f56603d-e305-40f7-af8e-16c7b5f1e290" title="record" event="ZK157:8A推力器脉冲计时" tm="[ZK157]"/>
+            <children stepId="4159bd1f-7622-4386-9675-be0b36075ce4" title="record" event="ZK158:2B推力器脉冲计时" tm="[ZK158]"/>
+            <children stepId="da90886e-b5dd-4bf4-9ebd-d9d8d7dbdba4" title="record" event="ZK159:3B推力器脉冲计时" tm="[ZK159]"/>
+            <children stepId="9d51fb26-1a6f-4552-bb91-3b5722e16021" title="record" event="ZK160:4B推力器脉冲计时" tm="[ZK160]"/>
+            <children stepId="e1097984-fb92-4820-b3e6-f6a7cdd33ab8" title="record" event="ZK161:5B推力器脉冲计时" tm="[ZK161]"/>
+            <children stepId="d99876f4-38b5-4a7f-9bd2-e8e816f2b61f" title="record" event="ZK162:6B推力器脉冲计时" tm="[ZK162]"/>
+            <children stepId="b24e4b28-e1df-4893-a065-24b4b440ee40" title="record" event="ZK163:7B推力器脉冲计时" tm="[ZK163]"/>
+            <children stepId="86f571c9-8bdc-454a-82af-04f821f1b362" title="record" event="ZK164:8B推力器脉冲计时" tm="[ZK164]"/>
+        </step>
+        <step stepId="fae8a2ef-6c63-421e-8532-cdaed58c6e47" title="label" event="Waiting 1920s after AOCS transfer to NM000?? sending the following commands">
+            <children stepId="ed3fe6a9-d9a0-4163-ab6f-2b1e6f067b5d" title="wait" event="Waiting 1920s" data="1920"/>
+            <children stepId="2f5724cc-73ce-42cd-9340-6a7b3a9cffde" title="label" event="Uploading X axis momentum unloading threshold">
+                <children stepId="8c58a2d3-143a-41c5-8447-4dbd2838bf43" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="E901"/>
+                <children stepId="42fca4e8-a463-4970-b134-3814807add4b" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="3E4C"/>
+                <children stepId="8d75d641-8bdb-4f34-aef7-e698e010347f" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="CCCC"/>
+                <children stepId="3256e387-e0fa-481f-9e14-344fc4640941" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="F0F0"/>
+            </children>
+            <children stepId="5e2af7dc-05c3-4d7f-82b6-037b51714468" title="label" event="Uploading Z axis momentum unloading threshold">
+                <children stepId="8e0a66da-0a1a-4114-ab45-e65c94d7ff00" title="label" event="Uploading X axis momentum unloading threshold">
+                    <children stepId="06914a81-0ca7-42ed-bb81-748d4cd353da" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="E902"/>
+                    <children stepId="2c608a27-eb50-4885-9c7f-b3b90e6be365" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="3E99"/>
+                    <children stepId="e43ae7d2-1e85-4457-9f29-1ca4439f0592" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="999A"/>
+                    <children stepId="ee5f90f9-16aa-4fab-9431-e405393a0d43" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="F0F0"/>
+                </children>
+            </children>
+        </step>
+        <step stepId="05114769-ffd0-4b1c-97e9-5c376d1fe572" title="label" event="When roll(zk102) and pitch(zk105) less than 0.15, change threshold to x0.3,y0.3z0.0">
+            <children stepId="4eae8bf1-6e6c-44f3-9e82-213bd0ad4f9c" title="verify" event="ZK102:地球滚动角ES1(快帧)" tm="[ZK102]&lt;0.15&amp;&amp;[ZK102]&gt;-0.15"/>
+            <children stepId="b1fa52a3-207f-4dd9-a67e-78ad17d9ea8e" title="verify" event="ZK105:地球俯仰角ES2(快帧)" tm="[ZK105]&lt;0.15&amp;&amp;[ZK105]&gt;-0.15"/>
+        </step>
+        <step stepId="2276377b-bd62-4b85-8b21-40451a94de78" title="label" event="Change threshold x 0.3 , y 0.3, z 0">
+            <children stepId="f5a24825-41af-4797-9f90-98ec767fb17d" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="D500"/>
+            <children stepId="add69a34-2a78-495e-adc5-a584402f6f6b" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="3E99"/>
+            <children stepId="cbcfca38-6ac9-420b-95dc-7dae3d63481e" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="999A"/>
+            <children stepId="eb380bb9-1a8b-401d-9244-bfe52f1676fd" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="3E99"/>
+            <children stepId="ca381de9-0317-4a6b-907d-3b94d06981ff" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="999A"/>
+            <children stepId="8708c9f7-a280-49cb-bd31-b3ced3aba2d0" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="1aca557b-c552-4cf5-a005-c68ce7af03f4" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="8f5e6524-896b-4d56-b155-ccaff66621c1" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0064"/>
+            <children stepId="228af932-eec7-44e8-adde-60f55e246d18" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="F0F0"/>
+            <children stepId="f8d72beb-5f7d-433f-9529-4e266cf1c5b7" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="F0F0"/>
+            <children stepId="0f04eb4a-be71-48f3-8166-c5eeb8603a85" title="verify" event="ZK138:X轴超差门限" tm="[ZK138]==0.3"/>
+            <children stepId="fb8c7b8a-3a9e-44d3-8948-b23d1d465e76" title="verify" event="ZK139:Y轴超差门限" tm="[ZK139]==0.3"/>
+            <children stepId="0d3b4a24-fe22-455c-bd7b-4062ab53d9e5" title="verify" event="ZK140:Z轴超差门限" tm="[ZK140]==0"/>
+        </step>
+        <step stepId="522a716a-d18b-44d6-a325-5dd59370783a" title="label" event="Ending calculating coefficient of yaw">
+            <children stepId="b70b4ef0-62b3-4d22-8745-7eef26b1f321" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="D900"/>
+            <children stepId="e752baae-1eb1-4ac6-8727-224bf64a0ee5" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="F0F0"/>
+        </step>
+        <step stepId="9bb7adc3-fe51-43cb-9bfa-2d38e836f3cc" title="label" event="Turn off SSE-A and SSE-B (SunSensor)">
+            <children stepId="5114817b-c4d8-401f-ae06-434dae1521d0" title="send" event="00304:太阳敏感器A、B断" tc="00304"/>
+            <children stepId="e7f9073d-9dd0-4d71-bce2-541648baa053" title="verify" event="ZK11.B4:SSE-A电源状态(AOCE)" tm="[ZK11.B4]==0"/>
+            <children stepId="4e9848bb-915f-4df0-90f1-dd67180a5c05" title="verify" event="ZK11.B5:SSE-B电源状态(AOCE)" tm="[ZK11.B5]==0"/>
+            <children stepId="d368f7e1-cc1a-45a6-8136-a03762852dfe" title="verify" event="ZK115.B4:SSE-A电源状态" tm="[ZK115.B4]==0"/>
+            <children stepId="ff549082-a01a-4ff1-a8a0-67380216b2d9" title="verify" event="ZK115.B5:SSE-B电源状态" tm="[ZK115.B5]==0"/>
+        </step>
+        <step stepId="f2966896-1e5a-4ed9-93d9-16fae0241b56" title="label" event="Clear uploading disturbance torque">
+            <children stepId="31c5194f-2a66-4caa-8a5b-29ea69fa4362" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="D204"/>
+            <children stepId="a21cd0aa-3a12-41d7-822c-2f0936bf3830" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="5e601fec-9709-4fd2-9f89-29b08802ec41" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="86e5d6d4-52da-4df1-9c30-16e35bd1ae56" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="D205"/>
+            <children stepId="6aa32d5b-d5f4-41ff-adb2-c056d78a2a28" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="6a64fbfa-dcfe-453d-a5f7-c186ac573268" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="062faa1f-6f56-4118-81e2-08efd7de1360" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="D206"/>
+            <children stepId="17aaa269-f5f5-4ba8-8e28-9600265a3bb5" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="21d4c79d-ac84-4713-a2c2-58e8cb616aa4" title="send" event="00353:OBC-TC4遥控字" tc="00353" data="0000"/>
+            <children stepId="36d9f92c-f650-4ccf-9185-6f3a3d7cef3f" title="send" event="00353:OBC-TC4遥控字" tc="00353" param="" data="F0F0"/>
+        </step>
+        <step stepId="89925c43-a521-4aa8-9ae0-75cf5297ffe4" title="label" event="Turn off PVC-B">
+            <children stepId="a5638455-a6ad-4410-8d2c-738d86906887" title="send" event="00337:电源变换器B断" tc="00337"/>
+            <children stepId="d6a005ab-01c4-4ab3-ab2b-263180f6b322" title="verify" event="VK27:控制电源变换器输出B电压" tm="[VK27]&gt;0&amp;&amp;[VK27]&lt;0.5"/>
+        </step>
+    </body>
+    <monitorList>        
+        <tm no="ZK194" desc="位保点火方向" value="12.0" time="08-17 09-43-39"/>
+        <tm no="ZK209" desc="位保脉冲点火次数" value="0.0" time="08-17 09-43-39"/>
+        <tm no="ZK199" desc="位保点火脉宽" value="0.8320000000000001" time="08-17 09-43-39"/>
+        <tm no="ZK200" desc="位保点火间隔" value="0.0" time="08-17 09-43-39"/>
+        <tm no="ZK148.B15" desc="推进分系统工作状态:SK-K，位保点火标志" value="0.0" time="08-17 09-43-39"/>
+        <tm no="ZK102" desc="地球滚动角ES1(快帧)" value="0.0" time="08-17 09-43-39"/>
+        <tm no="ZK105" desc="地球俯仰角ES2(快帧)" value="-0.07" time="08-17 09-43-39"/>
+        <tm no="ZK23" desc="动量轮1转速(AOCE)" value="4593.75" time="08-17 09-43-39"/>
+        <tm no="ZK24" desc="动量轮2转速(AOCE)" value="4593.75" time="08-17 09-43-39"/>
+    </monitorList>
+</procedure>

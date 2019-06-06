@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>@ViewBag.SysName</title>
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login_box">
+        <div class="login_l_img"><img src="~/images/login-img.png" /></div>
+        <div class="login">
+            <div class="login_logo"><a href="javascript:void(0)"><img src="~/images/login_logo.png" /></a></div>
+            <div class="login_name">
+                <p>@ViewBag.SysName</p>
+            </div>
+            <form method="post" class="layui-form">
+                <input name="username" type="text" lay-verify="required" placeholder="用户名/邮箱/电话" id="username" value="admin">
+                <input name="password" type="password" lay-verify="required" placeholder="密码" id="password" value="123456" />
+                @Html.AntiForgeryToken()
+                <input value="登录" style="width:100%;" lay-submit lay-filter="login" type="submit">
+            </form>
+        </div>
+        <div class="copyright">版权所有©2018</div>
+    </div>
+    <script src="~/lib/main.js"></script>
+    <script src="~/lib/require/require.js" data-main="../js/User/login.js"></script>
+</body>
+</html>
