@@ -29,7 +29,7 @@ require(["jquery", 'layui'], function ($) {
             url: '/System/User/GetUserList',
             cellMinWidth: 95,
             page: true,
-            height: "full-125",
+            height: "full-105",
             limits: [10, 15, 20, 25],
             limit: 20,
             id: "userListTable",
@@ -93,14 +93,9 @@ require(["jquery", 'layui'], function ($) {
                         body.find(".userGroupId").val(edit.UserGroupId);  //所属用户组
                         body.find("#userStatus").val(edit.UserStatus);
                         body.find(".userSex input[value=" + edit.userSex + "]").prop("checked", "checked");  //性别
-                        body.find(".note").text(edit.Note);    //用户简介
+                        body.find(".note").val(edit.Note);    //用户简介
                         form.render();
                     }
-                    setTimeout(function () {
-                        layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    }, 500);
                 }
             });
             layer.full(index);
@@ -109,15 +104,15 @@ require(["jquery", 'layui'], function ($) {
         function editData() {
             var checkStatus = table.checkStatus('userListTable'),
                 data = checkStatus.data;
-            if (data.length > 0 && data.length === 1) {
-                addModel(data[0]);
-            } else if (data.length > 1) {
-                layer.msg("一次只能修改一条记录");
-            }
-            else {
+            if (data.length === 0) {
                 layer.msg("请选择需要修改的记录");
+                return;
             }
-
+            if (data.length > 1) {
+                layer.msg("一次只能修改一条记录");
+                return;
+            }
+            addModel(data[0]);
         }
 
         //批量删除

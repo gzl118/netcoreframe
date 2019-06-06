@@ -114,7 +114,7 @@ namespace SANS.BLL.Implements
         public MessageModel GetRoleMenuList(string RoleId)
         {
 
-            var list = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)sysAuthorityBLL.GetRoleAuthoritieList(RoleId, SysEnum.Enum_AuthorityType.Type_Menu).Data).Select(t => t.sysMenu).ToList());
+            var list = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)sysAuthorityBLL.GetRoleAuthoritieList(RoleId, SysEnum.Enum_AuthorityType.ALL).Data).Select(t => t.sysMenu).ToList());
             return new MessageModel
             {
                 Data = list

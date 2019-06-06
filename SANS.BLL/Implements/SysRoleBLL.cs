@@ -37,7 +37,8 @@ namespace SANS.BLL.Implements
         {
             var model = new MessageModel();
             StringBuilder builder = new StringBuilder(20);
-            builder.AppendLine(value: $"UPDATE Sys_Role SET DeleteSign={(Int32)SysEnum.Enum_DeleteSign.Sign_Undeleted},DeleteTime='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE RoleId IN (");
+            //builder.AppendLine(value: $"UPDATE Sys_Role SET DeleteSign={(Int32)SysEnum.Enum_DeleteSign.Sign_Undeleted},DeleteTime='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE RoleId IN (");
+            builder.AppendLine(value: $"DELETE FROM Sys_Role WHERE RoleId IN (");
             builder.AppendLine($"'{String.Join("','", RoleId)}')");
             bool bResult = ExecuteSql(builder.ToString()) > 0;
             model.Result = bResult;

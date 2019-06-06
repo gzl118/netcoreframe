@@ -7,7 +7,8 @@
     <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
     <link href="~/css/public.css" rel="stylesheet" />
 }
-<div style="padding:20px;">
+<div style="padding:10px;">
+    <input type="hidden" id="menuoid" value="@ViewBag.MenuOid" />
     <form class="layui-form">
         <blockquote class="layui-elem-quote quoteBox">
             <div class="layui-form">
@@ -17,21 +18,11 @@
                     </div>
                     <a class="layui-btn search_btn" data-type="reload">搜索</a>
                 </div>
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-normal addNews_btn">添加角色</a>
-                </div>
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
-                </div>
             </div>
         </blockquote>
         <table id="roleList" lay-filter="roleList"></table>
         <!--操作-->
         <script type="text/html" id="roleListBar">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
-            <a class="layui-btn layui-btn-xs layui-btn-warm roleassignment" lay-event="roleassignment">分配用户</a>
-            @*<a class="layui-btn layui-btn-xs layui-btn-warm roleassignment" lay-event="usergroupassignment">分配用户组</a>*@
         </script>
     </form>
 </div>

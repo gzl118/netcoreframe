@@ -28,7 +28,11 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
         /// 主页
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index() => View();
+        public IActionResult Index(string oid)
+        {
+            ViewBag.MenuOid = oid;
+            return View();
+        }
         /// <summary>
         /// 添加角色视图
         /// </summary>
