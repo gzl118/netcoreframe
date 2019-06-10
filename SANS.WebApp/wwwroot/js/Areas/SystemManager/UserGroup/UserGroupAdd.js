@@ -20,7 +20,7 @@ require(["jquery", 'layui'], function ($) {
                 console.log(res);
                 top.layer.close(index);
                 top.layer.msg(res.Messages);
-                if (res.StateCode == 200) {
+                if (res.StateCode === 200) {
                     layer.closeAll("iframe");
                     //刷新父页面
                     parent.location.reload();
@@ -28,41 +28,6 @@ require(["jquery", 'layui'], function ($) {
 
             }, 'json');
             return false;
-        });
-        //自定义验证规则
-        form.verify({
-            username: function (value, item) { //value：表单的值、item：表单的DOM对象
-                if (/[\u4e00-\u9fa5]+/.test(value)) {
-                    return '用户名不能为汉字';
-                }
-                if (/\s+/.test(value)) {
-                    return '用户名不能包含空格';
-                }
-                if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
-                    return '用户名不能有特殊字符';
-                }
-            },
-            email: function (value, item) { //value：表单的值、item：表单的DOM对象
-                if (value != '') {
-                    if (!new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$").test(value)) {
-                        return '邮箱格式错误';
-                    }
-                }
-            },
-            phone: function (value, item) { //value：表单的值、item：表单的DOM对象
-                if (value != '') {
-                    if (!new RegExp("^[1][3,4,5,7,8,9][0-9]{9}$").test(value)) {
-                        return '手机号格式 wd 错误';
-                    }
-                }
-            },
-            qq: function (value, item) { //value：表单的值、item：表单的DOM对象
-                if (value != '') {
-                    if (!new RegExp("^[0-9][0-9]{4,}$").test(value)) {
-                        return 'QQ格式错误';
-                    }
-                }
-            }
         });
     });
 });

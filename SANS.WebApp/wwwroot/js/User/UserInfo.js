@@ -11,9 +11,10 @@
             url: '/user/UploadImg',
             method: "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
             done: function (res, index, upload) {
-                var num = parseInt(4 * Math.random());  //生成0-4的随机数，随机显示一个头像信息
-                $('#userFace').attr('src', res.data[num].src);
-                window.sessionStorage.setItem('userFace', res.data[num].src);
+                layer.msg(res.Msg);
+                //var num = parseInt(4 * Math.random());  //生成0-4的随机数，随机显示一个头像信息
+                $('#userFace').attr('src', res.Src);
+                window.sessionStorage.setItem('userFace', res.Src);
             }
         });
 
@@ -73,6 +74,7 @@
                 UserPhone: $(".userPhone").val(),  //手机号
                 UserGroupId: $(".userGroupId").val(),  //所属用户组
                 UserSex: data.field.sex,  //性别
+                UserStatus: 1,
                 Note: $(".note").val()    //备注
             };
             console.log(postdata);
@@ -80,8 +82,8 @@
                 console.log(res);
                 layer.close(index);
                 layer.msg(res.Messages);
-                if (res.Statecode == 200) {
-                   location.reload();
+                if (res.Statecode === 200) {
+                    location.reload();
                 }
 
             }, 'json');

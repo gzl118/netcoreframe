@@ -2,7 +2,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = @ViewBag.SysName;
-
+    var img = @Model.UserAvatar;
+    if (string.IsNullOrEmpty(img))
+        img = "/images/admin.png";
 }
 <style>
     .myfooter {
@@ -30,7 +32,7 @@
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
                 <li class="layui-nav-item" id="userInfo">
-                    <a href="javascript:;"><img src="@Model.UserAvatar" class="layui-nav-img userAvatar" id="userAvatar" width="35" height="35" onerror="this.src='/images/admin.png'"><cite class="adminName">@Model.UserNikeName</cite></a>
+                    <a href="javascript:;"><img src="@img" class="layui-nav-img userAvatar" id="userAvatar" width="35" height="35" onerror="this.src='/images/admin.png'"><cite class="adminName">@Model.UserNikeName</cite></a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="/User/UserInfo"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
                         <dd><a href="javascript:;" data-url="/User/UserChagePwd"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
@@ -44,7 +46,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <div class="user-photo">
-                <a class="img" title="我的头像"><img src="@Model.UserAvatar" class="userAvatar" onerror="this.src='/images/admin.png'"></a>
+                <a class="img" title="我的头像"><img src="@img" class="userAvatar" onerror="this.src='/images/admin.png'"></a>
                 <p>您好！<span class="userName">@Model.UserNikeName</span>, 欢迎登录</p>
             </div>
             <div class="left-nav">

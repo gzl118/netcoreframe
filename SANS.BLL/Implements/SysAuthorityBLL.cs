@@ -58,13 +58,14 @@ namespace SANS.BLL.Implements
         /// <param name="user"></param>
         /// <param name="oid"></param>
         /// <returns></returns>
-        public List<string> GetSysBtn(SysUser user, string oid)
+        public List<SysMenu> GetSysBtn(SysUser user, string oid)
         {
             List<SysRole> roles = new List<SysRole>(user.sysRoles);
             if (user.sysUserGroup != null)
                 roles.AddRange(user.sysUserGroup.sysRoles);
             var lbtns = sysAuthorityDAL.GetSysBtn(user.isAdministrctor, roles.Distinct().ToList(), oid);
-            return lbtns.Where(p => !string.IsNullOrEmpty(p.MenuUrl)).Select(p => p.MenuUrl).ToList();
+            return lbtns;
+            //return lbtns.Where(p => !string.IsNullOrEmpty(p.MenuUrl)).Select(p => p.MenuUrl).ToList();
         }
     }
 }

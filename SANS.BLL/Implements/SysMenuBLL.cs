@@ -120,7 +120,7 @@ namespace SANS.BLL.Implements
                 Data = list
             };
         }
-        public List<string> GetMenuBtns(SysUser user, string oid)
+        public List<SysMenu> GetMenuBtns(SysUser user, string oid)
         {
             List<SysRole> roles = new List<SysRole>(user.sysRoles);
             if (user.sysUserGroup != null)

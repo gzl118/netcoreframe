@@ -30,6 +30,6 @@ namespace SANS.BLL.Interface
         /// <param name="user"></param>
         /// <param name="oid"></param>
         /// <returns></returns>
-        List<string> GetSysBtn(SysUser user, string oid);
+        List<SysMenu> GetSysBtn(SysUser user, string oid);
     }
 }

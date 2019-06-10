@@ -37,7 +37,7 @@ namespace SANS.BLL.Implements
             Expression<Func<SysUserGroup, bool>> expression = t => (string.IsNullOrEmpty(searchstr) || t.UserGroupName.Contains(searchstr)) && t.DeleteSign.Equals((int)SysEnum.Enum_DeleteSign.Sing_Deleted);
             pageModel.RowCount = userGroupDAL.GetCount(expression);
             int iBeginRow = Convert.ToInt32(limit) * (Convert.ToInt32(page) - 1), iEndRow = Convert.ToInt32(page) * Convert.ToInt32(limit);
-            var list = userGroupDAL.SqlQuery<SysUserGroupDto>($@"SELECT 
+            var list = userGroupDAL.SqlQuery<SysUserGroupDto>($@"SELECT T1.UserGroupId,
                              T1.UserGroupName,
                              T1.ParentUserGroupId,
                             T2.UserGroupName ParentUserGroupName, T1.CreateTime, T1.Note 
@@ -64,7 +64,7 @@ namespace SANS.BLL.Implements
         {
             var model = new MessageModel();
             StringBuilder builder = new StringBuilder(20);
-            builder.AppendLine(value: $"UPDATE SYS_USERGroup SET DeleteSign={(Int32)SysEnum.Enum_DeleteSign.Sign_Undeleted},DeleteTime='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE UserGroupId IN (");
+            builder.AppendLine(value: $"DELETE FROM Sys_UserGroup WHERE UserGroupId IN (");
             builder.AppendLine($"'{String.Join("','", UserGroupId)}')");
             bool bResult = ExecuteSql(builder.ToString()) > 0;
             model.Result = bResult;

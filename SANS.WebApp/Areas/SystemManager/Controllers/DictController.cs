@@ -22,8 +22,9 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
             _cacheContext = cacheContext;
             this.injection = injection;
         }
-        public IActionResult Index()
+        public IActionResult Index(string oid)
         {
+            ViewBag.MenuOid = oid;
             return View();
         }
         public IActionResult DictAdd()

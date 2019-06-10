@@ -5,20 +5,35 @@
 require(["jquery", 'layui'], function ($) {
     layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         var form = layui.form,
-            layer = parent.layer === undefined ? layui.layer : top.layer,
+            layer = layui.layer,
             $ = layui.jquery,
             laytpl = layui.laytpl,
             table = layui.table;
+        $.ajax({
+            url: "/System/Menu/GetMenuBtn",
+            type: "get",
+            async: false,
+            dataType: "json",
+            data: { oid: $("#menuoid").val() },
+            success: function (data) {
+                var ndata = data.data;
+                var getTpl = getTempleteHTML(ndata);
+                document.getElementById('dictListBar').innerHTML = getTpl;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
         //字典列表
         var tableIns = table.render({
             elem: '#dictList',
             url: '/System/Dict/GetDictList',
             cellMinWidth: 95,
             page: true,
-            height: "full-125",
+            height: "full-20",
             limits: [10, 15, 20, 25],
             limit: 20,
-            id: "dict_id",
+            id: "dictListTable",
+            toolbar: "#dictListBar",
             done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
@@ -34,19 +49,19 @@ require(["jquery", 'layui'], function ($) {
                 { field: 'code_value', title: '子类值', align: 'center', minWidth: 150 },
                 { field: 'code_sort', title: '子类排序', align: 'center', minWidth: 15 },
                 { field: 'creat_time', title: '创建时间', align: 'center', minWidth: 150 },
-                { field: 'remark', title: '备注', align: 'center' },
-                { title: '操作', minWidth: 175, templet: '#dictListBar', fixed: "right", align: "center" }
+                { field: 'remark', title: '备注', align: 'center' }
+                //{ title: '操作', minWidth: 175, templet: '#dictListBar', fixed: "right", align: "center" }
             ]]
         });
 
         //添加用户
-        function addDict(edit) {
-            var index = layui.layer.open({
+        function addModel(edit) {
+            var index = layer.open({
                 title: "添加/编辑字典",
                 type: 2,
                 content: "/System/Dict/DictAdd",
                 success: function (layero, index) {
-                    var body = layui.layer.getChildFrame('body', index);
+                    var body = layer.getChildFrame('body', index);
                     if (edit) {
                         body.find(".dict_id").val(edit.dict_id);
                         body.find(".type_code").val(edit.type_code);  //
@@ -65,21 +80,17 @@ require(["jquery", 'layui'], function ($) {
                     }, 500);
                 }
             });
-            layui.layer.full(index);
+            layer.full(index);
 
         }
-        $(".addNews_btn").click(function () {
-            addDict();
-        });
-
         //批量删除
-        $(".delAll_btn").click(function () {
-            var checkStatus = table.checkStatus('userListTable'),
+        function delData() {
+            var checkStatus = table.checkStatus('dictListTable'),
                 data = checkStatus.data,
                 dict_id = [];
             if (data.length > 0) {
                 for (var i in data) {
-                    dict_id.push(data[i].UserId);
+                    dict_id.push(data[i].dict_id);
                 }
                 console.log(dict_id);
                 layer.confirm('确定删除选中的信息？', { icon: 3, title: '提示信息' }, function (index) {
@@ -88,7 +99,7 @@ require(["jquery", 'layui'], function ($) {
                     }, function (res) {
                         layer.msg(res.Messages);
                         layer.close(index);
-                        if (res.StateCode == 200) {
+                        if (res.StateCode === 200) {
                             tableIns.reload();
                         }
                     }, "json");
@@ -96,26 +107,41 @@ require(["jquery", 'layui'], function ($) {
             } else {
                 layer.msg("请选择需要删除的信息");
             }
-        });
-
-        //列表操作
-        table.on('tool(dictList)', function (obj) {
-            var layEvent = obj.event,
-                data = obj.data;
-            if (layEvent === 'edit') { //编辑
-                addDict(data);
-            } else if (layEvent === 'del') { //删除
-                layer.confirm('确定删除？', { icon: 3, title: '提示信息' }, function (index) {
-                    $.post("/System/Dict/DelDict", {
-                        dict_id: data.dict_id
-                    }, function (res) {
-                        layer.msg(res.Messages);
-                        layer.close(index);
-                        if (res.StateCode == 200) {
-                            tableIns.reload();
-                        }
-                    }, "json");
-                });
+        }
+        function editData() {
+            var checkStatus = table.checkStatus('dictListTable'),
+                data = checkStatus.data;
+            if (data.length === 0) {
+                layer.msg("请选择需要修改的记录");
+                return;
+            }
+            if (data.length > 1) {
+                layer.msg("一次只能修改一条记录");
+                return;
+            }
+            addModel(data[0]);
+        }
+        function refreshData() {
+            table.reload("dictListTable", {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
+        table.on("toolbar(dictList)", function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    addModel();
+                    break;
+                case 'del':
+                    delData();
+                    break;
+                case 'edit':
+                    editData();
+                    break;
+                case 'refresh':
+                    refreshData();
+                    break;
             }
         });
 

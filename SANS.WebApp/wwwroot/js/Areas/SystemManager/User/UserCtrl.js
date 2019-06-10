@@ -34,6 +34,7 @@ require(["jquery", 'layui'], function ($) {
             limit: 20,
             id: "userListTable",
             toolbar: "#userListBar",
+            //defaultToolbar: ['filter'],
             done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度

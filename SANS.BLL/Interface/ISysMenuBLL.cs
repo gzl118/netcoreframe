@@ -34,6 +34,6 @@ namespace SANS.BLL.Interface
         /// <param name="user"></param>
         /// <param name="oid"></param>
         /// <returns></returns>
-        List<string> GetMenuBtns(SysUser user, string oid);
+        List<SysMenu> GetMenuBtns(SysUser user, string oid);
     }
 }

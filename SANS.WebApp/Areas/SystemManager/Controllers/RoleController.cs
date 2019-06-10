@@ -42,12 +42,20 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
         /// 角色分配给用户
         /// </summary>
         /// <returns></returns>
-        public IActionResult RoleAssignmentUser() => View();
+        public IActionResult RoleAssignmentUser(string oid)
+        {
+            ViewBag.MenuOid = oid;
+            return View();
+        }
         /// <summary>
         /// 角色分配给用户组
         /// </summary>
         /// <returns></returns>
-        public IActionResult RoleAssignmentUserGroup() => View();
+        public IActionResult RoleAssignmentUserGroup(string oid)
+        {
+            ViewBag.MenuOid = oid;
+            return View();
+        }
         /// <summary>
         /// 选择用户
         /// </summary>

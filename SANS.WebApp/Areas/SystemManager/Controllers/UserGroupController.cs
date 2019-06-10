@@ -21,8 +21,9 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
         {
             this.injection = injection;
         }
-        public IActionResult Index()
+        public IActionResult Index(string oid)
         {
+            ViewBag.MenuOid = oid;
             return View();
         }
         public IActionResult UserGroupAdd(string UserGroupId)

@@ -119,7 +119,7 @@ require(["jquery", 'layui'], function ($) {
                 }
             });
         }
-        function roleAssignment() {
+        function roleAssignment(oid) {
             var checkStatus = table.checkStatus('roleListTable'),
                 data = checkStatus.data;
             if (data.length === 0) {
@@ -133,13 +133,13 @@ require(["jquery", 'layui'], function ($) {
             var index = layer.open({
                 title: "分配用户(" + data[0].RoleName + ")",
                 type: 2,
-                content: "/System/Role/RoleAssignmentUser?RoleId=" + (data[0] !== undefined ? data[0].RoleId : ""),
+                content: "/System/Role/RoleAssignmentUser?RoleId=" + (data[0] !== undefined ? data[0].RoleId : "") + "&oid=" + oid,
                 success: function (layero, index) {
                 }
             });
             layer.full(index);
         }
-        function usergroupAssignment() {
+        function usergroupAssignment(oid) {
             var checkStatus = table.checkStatus('roleListTable'),
                 data = checkStatus.data;
             if (data.length === 0) {
@@ -153,13 +153,14 @@ require(["jquery", 'layui'], function ($) {
             var index = layer.open({
                 title: "分配用户组(" + data[0].RoleName + ")",
                 type: 2,
-                content: "/System/Role/RoleAssignmentUserGroup?RoleId=" + (data[0] !== undefined ? data[0].RoleId : ""),
+                content: "/System/Role/RoleAssignmentUserGroup?RoleId=" + (data[0] !== undefined ? data[0].RoleId : "") + "&oid=" + oid,
                 success: function (layero, index) {
                 }
             });
             layer.full(index);
         }
         table.on("toolbar(roleList)", function (obj) {
+            var oid = $(this).data("oid");
             switch (obj.event) {
                 case 'add':
                     addModel();
@@ -171,10 +172,10 @@ require(["jquery", 'layui'], function ($) {
                     editData();
                     break;
                 case 'roleassignment':
-                    roleAssignment();
+                    roleAssignment(oid);
                     break;
                 case 'usergroupassignment':
-                    usergroupAssignment();
+                    usergroupAssignment(oid);
                     break;
                 case 'refresh':
                     refreshData();

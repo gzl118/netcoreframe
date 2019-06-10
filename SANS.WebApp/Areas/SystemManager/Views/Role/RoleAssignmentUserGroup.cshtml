@@ -6,8 +6,8 @@
 @section css{
     <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
 }
-
-<div style="padding:20px;">
+<div style="padding:10px;">
+    <input type="hidden" id="menuoid" value="@ViewBag.MenuOid" />
     <form class="layui-form">
         <blockquote class="layui-elem-quote quoteBox">
             <div class="layui-form">
@@ -17,18 +17,18 @@
                     </div>
                     <a class="layui-btn search_btn" data-type="reload">搜索</a>
                 </div>
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-normal addNews_btn">添加用户组</a>
-                </div>
-                <div class="layui-inline">
-                    <a class="layui-btn layui-btn-danger layui-btn-normal cancelAll_btn">批量取消</a>
-                </div>
+                @*<div class="layui-inline">
+                        <a class="layui-btn layui-btn-normal addNews_btn">添加用户组</a>
+                    </div>
+                    <div class="layui-inline">
+                        <a class="layui-btn layui-btn-danger layui-btn-normal cancelAll_btn">批量取消</a>
+                    </div>*@
             </div>
         </blockquote>
         <table id="userGroupList" lay-filter="userGroupList"></table>
         <!--操作-->
         <script type="text/html" id="userGroupListBar">
-            <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="cancelUserGroupAssignment">取消授权</a>
+            @*<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="cancelUserGroupAssignment">取消授权</a>*@
         </script>
     </form>
 </div>
