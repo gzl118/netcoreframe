@@ -47,16 +47,6 @@ namespace SANS.WebApp.Data
                     {
                         try
                         {
-                            #region 初始化字典表
-                            //初始化字典表---------------------------------------------------------开始
-                            //添加权限类型
-                            context.DictAuthorityType.AddRange(new DictAuthorityType
-                            {
-                                AuthorityTypeName = "菜单权限"
-                            });
-
-                            //初始化字典表---------------------------------------------------------结束
-                            #endregion
                             #region 初始化权限管理数据
                             #region 添加用户
                             //初始化用户(添加超级管理员:zhouli)

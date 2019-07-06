@@ -15,7 +15,6 @@ namespace SANS.DbEntity.Models
         {
         }
 
-        public virtual DbSet<DictAuthorityType> DictAuthorityType { get; set; }
         public virtual DbSet<SysAmRelated> SysAmRelated { get; set; }
         public virtual DbSet<SysAuthority> SysAuthority { get; set; }
         public virtual DbSet<SysMenu> SysMenu { get; set; }
@@ -29,12 +28,6 @@ namespace SANS.DbEntity.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DictAuthorityType>(entity =>
-            {
-                entity.HasKey(e => e.AuthorityTypeId);
-
-                entity.ToTable("Dict_AuthorityType");
-            });
             modelBuilder.Entity<SysDataDictionary>(entity =>
             {
                 entity.HasKey(e => e.dict_id);
