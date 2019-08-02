@@ -94,7 +94,8 @@ namespace SANS.BLL.Implements
         {
             var messageModel = new MessageModel();
             var PageModel = new PageModel();
-            var urRelateds = sysUrRelatedDAL.GetModels(t => t.RoleId.Equals(RoleId)).ToList();
+            //var urRelateds = sysUrRelatedDAL.GetModels(t => t.RoleId.Equals(RoleId)).ToList();
+            var urRelateds = sysUrRelatedDAL.GetModels(t => t.RoleId.Equals(RoleId));
             Expression<Func<SysUser, bool>> expression = t => (string.IsNullOrEmpty(searchstr) || t.UserName.Contains(searchstr) ||
                 t.UserNikeName.Contains(searchstr) ||
                 t.UserPhone.Contains(searchstr) ||
@@ -104,6 +105,11 @@ namespace SANS.BLL.Implements
                 && urRelateds.Any(x => x.UserId == t.UserId);
             PageModel.RowCount = sysUserDAL.GetCount(expression);
             int iBeginRow = Convert.ToInt32(limit) * (Convert.ToInt32(page) - 1), iEndRow = Convert.ToInt32(page) * Convert.ToInt32(limit);
+            var paramlist = string.Empty;
+            if (urRelateds.Count() > 0)
+            {
+                paramlist = String.Join("','", urRelateds.Select(t => t.UserId));
+            }
             var list = sysUserDAL.SqlQuery<SysUserDto>($@"
                                             SELECT T1.*
                                     FROM Sys_User T1
@@ -113,7 +119,7 @@ namespace SANS.BLL.Implements
                                             OR T1.UserWx LIKE '%{searchstr}%'
                                             OR T1.UserEmail LIKE '%{searchstr}%')
                                         AND T1.DeleteSign = 1
-                                        AND T1.UserId IN('{String.Join("','", urRelateds.Count == 0 ? new List<string>() : urRelateds.Select(t => t.UserId))}')
+                                        AND T1.UserId IN('{paramlist}')
                                       order by T1.CREATETIME
                                 limit   {iBeginRow} , {limit}");
             PageModel.Data = list;
@@ -129,16 +135,21 @@ namespace SANS.BLL.Implements
         {
             var messageModel = new MessageModel();
             var PageModel = new PageModel();
-            var urRelateds = sysUrRelatedDAL.GetModels(t => t.RoleId.Equals(RoleId)).ToList();
+            var urRelateds = sysUrRelatedDAL.GetModels(t => t.RoleId.Equals(RoleId));
             Expression<Func<SysUser, bool>> expression = t => (string.IsNullOrEmpty(searchstr) || t.UserName.Contains(searchstr) ||
                 t.UserNikeName.Contains(searchstr) ||
                 t.UserPhone.Contains(searchstr) ||
                 t.UserQq.Contains(searchstr) ||
                 t.UserWx.Contains(searchstr) ||
                 t.UserEmail.Contains(searchstr)) && t.DeleteSign.Equals((int)SysEnum.Enum_DeleteSign.Sing_Deleted)
-                && !urRelateds.Exists(x => x.UserId == t.UserId);
+                && !urRelateds.Any(x => x.UserId == t.UserId);
             PageModel.RowCount = sysUserDAL.GetCount(expression);
             int iBeginRow = Convert.ToInt32(limit) * (Convert.ToInt32(page) - 1), iEndRow = Convert.ToInt32(page) * Convert.ToInt32(limit);
+            var paramlist = string.Empty;
+            if (urRelateds.Count() > 0)
+            {
+                paramlist = String.Join("','", urRelateds.Select(t => t.UserId));
+            }
             var list = sysUserDAL.SqlQuery<SysUserDto>($@"
                                             SELECT T1.*
                                     FROM Sys_User T1
@@ -148,7 +159,7 @@ namespace SANS.BLL.Implements
                                             OR T1.UserWx LIKE '%{searchstr}%'
                                             OR T1.UserEmail LIKE '%{searchstr}%')
                                         AND T1.DeleteSign = 1
-                                        AND T1.UserId NOT IN('{String.Join("','", urRelateds.Count == 0 ? new List<string>() : urRelateds.Select(t => t.UserId))}')
+                                        AND T1.UserId NOT IN('{paramlist}')
                                       order by T1.CREATETIME
                                 limit   {iBeginRow} , {limit}");
             PageModel.Data = list;

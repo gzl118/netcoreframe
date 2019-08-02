@@ -18,10 +18,11 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
     public class RoleController : BaseController
     {
         private readonly WholeInjection injection;
-        ILogger logger;
-        public RoleController(WholeInjection injection)
+        private readonly ILogger<RoleController> logger;
+        public RoleController(WholeInjection injection, ILogger<RoleController> _logger)
         {
             this.injection = injection;
+            this.logger = _logger;
         }
         #region 视图部分
         /// <summary>
@@ -30,6 +31,7 @@ namespace SANS.WebApp.Areas.SystemManager.Controllers
         /// <returns></returns>
         public IActionResult Index(string oid)
         {
+            logger.LogInformation("访问角色视图页面!");
             ViewBag.MenuOid = oid;
             return View();
         }
