@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SANS.RedisOperation", "SANS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SANS.WebApp", "SANS.WebApp\SANS.WebApp.csproj", "{D4C309AE-50A6-49B8-BF81-79894D8A8B58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SANS.WebApi", "SANS.WebApi\SANS.WebApi.csproj", "{E44FF57A-E5F2-4793-9A2E-F4751C4C9721}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{D4C309AE-50A6-49B8-BF81-79894D8A8B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C309AE-50A6-49B8-BF81-79894D8A8B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4C309AE-50A6-49B8-BF81-79894D8A8B58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44FF57A-E5F2-4793-9A2E-F4751C4C9721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44FF57A-E5F2-4793-9A2E-F4751C4C9721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44FF57A-E5F2-4793-9A2E-F4751C4C9721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44FF57A-E5F2-4793-9A2E-F4751C4C9721}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
