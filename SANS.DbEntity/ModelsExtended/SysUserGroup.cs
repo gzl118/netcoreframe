@@ -28,6 +28,6 @@ namespace SANS.DbEntity.Models
     public partial class SysUserGroup
     {
         [NotMapped]
-        public List<SysRole> sysRoles { set; get; }
+        public List<SysRole> SysRoles { set; get; }
     }
 }

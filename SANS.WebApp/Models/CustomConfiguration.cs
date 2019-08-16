@@ -17,10 +17,6 @@
  *└──────────────────────────────────┘
 *****************************************************************/
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SANS.WebApp.Models
 {
@@ -32,7 +28,7 @@ namespace SANS.WebApp.Models
         /// <summary>
         /// 超级管理账户
         /// </summary>
-        public string adminAccount { set; get; }
+        public string AdminAccount { set; get; }
         /// <summary>
         /// 是否验证token
         /// </summary>
@@ -41,5 +37,17 @@ namespace SANS.WebApp.Models
         /// 容许访问的IP，多个以英文分号隔开
         /// </summary>
         public string AllowAccessIp { get; set; }
+        /// <summary>
+        /// 页面超时时间，单位分钟
+        /// </summary>
+        public int PageTimeout { get; set; }
+        /// <summary>
+        /// 超级管理员角色
+        /// </summary>
+        public string AdminRole { get; set; }
+        /// <summary>
+        /// 业务管理员角色
+        /// </summary>
+        public string BusinessAdminRole { get; set; }
     }
 }

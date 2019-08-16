@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using SANS.BLL.Interface;
+﻿using SANS.BLL.Interface;
 using SANS.DAL.Interface;
 using SANS.DbEntity.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SANS.BLL.Implements
 {
@@ -44,12 +41,12 @@ namespace SANS.BLL.Implements
         /// <returns></returns>
         public MessageModel GetSysAuthorities(SysUser user, SysEnum.Enum_AuthorityType authorityType)
         {
-            List<SysRole> roles = new List<SysRole>(user.sysRoles);
-            if (user.sysUserGroup != null)
-                roles.AddRange(user.sysUserGroup.sysRoles);
+            List<SysRole> roles = new List<SysRole>(user.SysRoles);
+            if (user.SysUserGroup != null)
+                roles.AddRange(user.SysUserGroup.SysRoles);
             return new MessageModel
             {
-                Data = sysAuthorityDAL.GetSysAuthorities(user.isAdministrctor, roles.Distinct().ToList(), authorityType)
+                Data = sysAuthorityDAL.GetSysAuthorities(user.IsAdministrctor, roles.Distinct().ToList(), authorityType)
             };
         }
         /// <summary>
@@ -60,10 +57,10 @@ namespace SANS.BLL.Implements
         /// <returns></returns>
         public List<SysMenu> GetSysBtn(SysUser user, string oid)
         {
-            List<SysRole> roles = new List<SysRole>(user.sysRoles);
-            if (user.sysUserGroup != null)
-                roles.AddRange(user.sysUserGroup.sysRoles);
-            var lbtns = sysAuthorityDAL.GetSysBtn(user.isAdministrctor, roles.Distinct().ToList(), oid);
+            List<SysRole> roles = new List<SysRole>(user.SysRoles);
+            if (user.SysUserGroup != null)
+                roles.AddRange(user.SysUserGroup.SysRoles);
+            var lbtns = sysAuthorityDAL.GetSysBtn(user.IsAdministrctor, roles.Distinct().ToList(), oid);
             return lbtns;
             //return lbtns.Where(p => !string.IsNullOrEmpty(p.MenuUrl)).Select(p => p.MenuUrl).ToList();
         }

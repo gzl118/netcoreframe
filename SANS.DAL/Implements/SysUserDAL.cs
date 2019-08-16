@@ -2,8 +2,6 @@
 using SANS.DbEntity.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq.Expressions;
 using System.Linq;
 
 namespace SANS.DAL.Implements
@@ -24,27 +22,27 @@ namespace SANS.DAL.Implements
         /// <returns></returns>
         public SysUser SetLoginSysUser(SysUser user)
         {
-            user.sysUserGroup = (from t1 in db.Set<SysUserGroup>() where t1.UserGroupId.Equals(user.UserGroupId) select t1).FirstOrDefault();
-            if (user.sysUserGroup != null)
+            user.SysUserGroup = (from t1 in db.Set<SysUserGroup>() where t1.UserGroupId.Equals(user.UserGroupId) select t1).FirstOrDefault();
+            if (user.SysUserGroup != null)
             {
-                user.sysUserGroup.sysRoles = (from sur in db.SysUgrRelated
-                                 join sr in db.SysRole
-                                 on sur.RoleId equals sr.RoleId
-                                 where sur.UserGroupId.Equals(user.sysUserGroup.UserGroupId)
-                                 select new SysRole
-                                 {
-                                     RoleId = sr.RoleId,
-                                     RoleName = sr.RoleName,
-                                     CreateUserId = sr.CreateUserId,
-                                     DeleteSign = sr.DeleteSign,
-                                     CreateTime = sr.CreateTime,
-                                     DeleteTime = sr.DeleteTime,
-                                     EditTime = sr.EditTime,
-                                     Note = sr.Note
-                                 }
+                user.SysUserGroup.SysRoles = (from sur in db.SysUgrRelated
+                                              join sr in db.SysRole
+                                              on sur.RoleId equals sr.RoleId
+                                              where sur.UserGroupId.Equals(user.SysUserGroup.UserGroupId)
+                                              select new SysRole
+                                              {
+                                                  RoleId = sr.RoleId,
+                                                  RoleName = sr.RoleName,
+                                                  CreateUserId = sr.CreateUserId,
+                                                  DeleteSign = sr.DeleteSign,
+                                                  CreateTime = sr.CreateTime,
+                                                  DeleteTime = sr.DeleteTime,
+                                                  EditTime = sr.EditTime,
+                                                  Note = sr.Note
+                                              }
                              ).ToList();
             }
-            user.sysRoles = (from sur in db.SysUrRelated
+            user.SysRoles = (from sur in db.SysUrRelated
                              join sr in db.SysRole
                              on sur.RoleId equals sr.RoleId
                              where sur.UserId.Equals(user.UserId)

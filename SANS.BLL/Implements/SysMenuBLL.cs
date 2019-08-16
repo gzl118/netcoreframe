@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Transactions;
 using SANS.BLL.Interface;
 using SANS.DAL.Interface;
 using SANS.DbEntity.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
 
 namespace SANS.BLL.Implements
 {
@@ -38,7 +36,7 @@ namespace SANS.BLL.Implements
         public MessageModel GetMenusBy(SysUser user, SysEnum.Enum_AuthorityType mType)
         {
             var listMenuDto = new List<SysMenuDto>();
-            listMenuDtos = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)(sysAuthorityBLL.GetSysAuthorities(user, mType).Data)).Select(t => t.sysMenu).ToList());
+            listMenuDtos = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)(sysAuthorityBLL.GetSysAuthorities(user, mType).Data)).Select(t => t.SysMenu).ToList());
             //找出所有一级菜单
             listMenuDto.AddRange(listMenuDtos.Where(t => t.ParentMenuId.Equals(Guid.Empty.ToString())).OrderBy(t => t.MenuSort).ThenBy(t => t.CreateTime));
             foreach (var item in listMenuDto)
@@ -114,7 +112,7 @@ namespace SANS.BLL.Implements
         public MessageModel GetRoleMenuList(string RoleId)
         {
 
-            var list = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)sysAuthorityBLL.GetRoleAuthoritieList(RoleId, SysEnum.Enum_AuthorityType.ALL).Data).Select(t => t.sysMenu).ToList());
+            var list = Mapper.Map<List<SysMenuDto>>(((List<SysAuthority>)sysAuthorityBLL.GetRoleAuthoritieList(RoleId, SysEnum.Enum_AuthorityType.ALL).Data).Select(t => t.SysMenu).ToList());
             return new MessageModel
             {
                 Data = list
@@ -122,9 +120,9 @@ namespace SANS.BLL.Implements
         }
         public List<SysMenu> GetMenuBtns(SysUser user, string oid)
         {
-            List<SysRole> roles = new List<SysRole>(user.sysRoles);
-            if (user.sysUserGroup != null)
-                roles.AddRange(user.sysUserGroup.sysRoles);
+            List<SysRole> roles = new List<SysRole>(user.SysRoles);
+            if (user.SysUserGroup != null)
+                roles.AddRange(user.SysUserGroup.SysRoles);
             return sysAuthorityBLL.GetSysBtn(user, oid);
         }
     }

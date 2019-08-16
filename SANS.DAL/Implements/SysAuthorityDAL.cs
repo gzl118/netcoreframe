@@ -1,10 +1,10 @@
-﻿using SANS.DAL.Interface;
+﻿using Dapper;
+using SANS.DAL.Interface;
 using SANS.DbEntity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dapper;
 
 namespace SANS.DAL.Implements
 {
@@ -69,7 +69,7 @@ namespace SANS.DAL.Implements
             {
                 var list = conn.Query<SysAuthority, SysMenu, SysAuthority>(builder.ToString(), (a, b) =>
                {
-                   a.sysMenu = b;
+                   a.SysMenu = b;
                    return a;
                }, splitOn: "MenuId").ToList();
                 return list;

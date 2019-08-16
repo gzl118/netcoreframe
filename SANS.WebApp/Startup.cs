@@ -1,34 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DInjectionProvider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using log4net;
-using log4net.Config;
-using log4net.Repository;
-using System.IO;
-using DInjectionProvider;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using SANS.WebApp.Filters;
+using SANS.Common.Cache;
+using SANS.Config;
+using SANS.WebApp.Comm;
 using SANS.WebApp.Data;
+using SANS.WebApp.Filters;
 using SANS.WebApp.Models;
 using SANS.WebApp.SignalR;
-using SANS.Common.Cache;
-using SANS.Common;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Routing;
-using SANS.WebApp.Comm;
-using SANS.Config;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
+using System;
 
 namespace SANS.WebApp
 {
@@ -52,11 +39,7 @@ namespace SANS.WebApp
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
-            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // 数据库连接字符串
             var conStr = Configuration.GetConnectionString("dataConnection");
             var conDataType = Configuration.GetConnectionString("dataBaseType");
@@ -79,10 +62,14 @@ namespace SANS.WebApp
                     ServiceLifetime.Scoped);
             }
             services.AddMemoryCache();
+            var pageTimeOut = Configuration.GetSection("CustomConfiguration").GetSection("PageTimeout").Value;
+            int tempTimeOut;
+            if (!int.TryParse(pageTimeOut, out tempTimeOut))
+                tempTimeOut = 30;
             //添加session中间件
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromDays(1);//设置session的过期时间
+                options.IdleTimeout = TimeSpan.FromMinutes(tempTimeOut);//设置session的过期时间
             });
             //.net core 2.1时默认不注入HttpContextAccessor依赖注入关系,所以再此手动注册
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -113,6 +100,10 @@ namespace SANS.WebApp
                 {
                     Duration = 60 * 60  // 1 hour
                 });
+            })
+            .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
             });
 
             #endregion
@@ -258,7 +249,7 @@ namespace SANS.WebApp
                 );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=User}/{action=Login}/");
             });
             // 应用启动时开始处理消息
             applicationLifetime.ApplicationStarted.Register(msgHandler.receiveMsg);

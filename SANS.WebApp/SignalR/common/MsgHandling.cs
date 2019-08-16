@@ -1,19 +1,7 @@
 ﻿using SANS.Common;
 using SANS.Log;
 using SANS.Model;
-using SANS.RedisOperation;
-using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SANS.DbEntity;
-using SANS.DbEntity.Models;
-using DInjectionProvider;
-using SANS.BLL.Interface;
-using SANS.WebApp.Models;
-using System.Text;
-using System.Linq;
 
 namespace SANS.WebApp.SignalR
 {

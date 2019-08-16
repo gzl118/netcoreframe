@@ -1,9 +1,8 @@
 ﻿using DInjectionProvider;
-using SANS.DbEntity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using SANS.DbEntity.Models;
 using SANS.WebApp.Models;
-using SANS.Common;
 
 namespace SANS.WebApp.Data
 {
@@ -13,9 +12,11 @@ namespace SANS.WebApp.Data
     public class UserAccount
     {
         private WholeInjection injection;
-        public UserAccount(WholeInjection injection)
+        private CustomConfiguration customConfiguration;
+        public UserAccount(WholeInjection injection, IOptionsSnapshot<CustomConfiguration> customConfiguration)
         {
             this.injection = injection;
+            this.customConfiguration = customConfiguration.Value;
         }
         /// <summary>
         /// COOKIE名常量
@@ -28,7 +29,7 @@ namespace SANS.WebApp.Data
         public SysUser GetUserInfo()
         {
             var user = injection.GetHttpContext.HttpContext.Session.GetSession<SysUser>(USER_COOKIE_NAME);
-            return user == null ? null : user;
+            return user;
         }
         /// <summary>
         /// 登录操作
@@ -36,7 +37,8 @@ namespace SANS.WebApp.Data
         /// <returns></returns>
         public bool Login(SysUser user)
         {
-            user.isAdministrctor = JudgeUserAdmin(user);
+            user.IsAdministrctor = JudgeUserAdmin(user);
+            user.IsBusinessAdministrctor = JudgeBusinessRoleAdmin(user);
             injection.GetHttpContext.HttpContext.Session.SetSession(USER_COOKIE_NAME, user);
             return true;
         }
@@ -47,8 +49,58 @@ namespace SANS.WebApp.Data
         /// <returns></returns>
         public bool JudgeUserAdmin(SysUser user)
         {
-            var adminAccount = injection.GetT<IOptionsSnapshot<CustomConfiguration>>().Value.adminAccount;
-            return user.UserName.Equals(adminAccount) ? true : false;
+            var adminAccount = customConfiguration.AdminAccount;
+            var isAdmin = user.UserName.Equals(adminAccount);
+            if (!isAdmin)
+            {
+                isAdmin = JudgeRoleAdmin(user);
+            }
+            return isAdmin;
+        }
+        /// <summary>
+        /// 通过角色判断是否是超级管理员
+        /// </summary>
+        /// <returns></returns>
+        public bool JudgeRoleAdmin(SysUser user)
+        {
+            if (string.IsNullOrWhiteSpace(customConfiguration.AdminRole))
+                return false;
+            if (user.SysRoles != null && user.SysRoles.Count > 0)
+            {
+                var tempRole = user.SysRoles.Find(p => p.RoleName.Equals(customConfiguration.AdminRole));
+                if (tempRole != null)
+                    return true;
+            }
+            if (user.SysUserGroup.SysRoles != null && user.SysUserGroup.SysRoles.Count > 0)
+            {
+                var tempRole = user.SysUserGroup.SysRoles.Find(p => p.RoleName.Equals(customConfiguration.AdminRole));
+                if (tempRole != null)
+                    return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 判断用户是否是业务管理员
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool JudgeBusinessRoleAdmin(SysUser user)
+        {
+            if (string.IsNullOrWhiteSpace(customConfiguration.BusinessAdminRole))
+                return false;
+            if (user.SysRoles != null && user.SysRoles.Count > 0)
+            {
+                var tempRole = user.SysRoles.Find(p => p.RoleName.Equals(customConfiguration.BusinessAdminRole));
+                if (tempRole != null)
+                    return true;
+            }
+            if (user.SysUserGroup.SysRoles != null && user.SysUserGroup.SysRoles.Count > 0)
+            {
+                var tempRole = user.SysUserGroup.SysRoles.Find(p => p.RoleName.Equals(customConfiguration.BusinessAdminRole));
+                if (tempRole != null)
+                    return true;
+            }
+            return false;
         }
     }
 }

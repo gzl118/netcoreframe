@@ -56,7 +56,11 @@ namespace SANS.WebApp.Filters
             SysUser sysUsersLogin = context.HttpContext.Session.GetSession<SysUser>("UserLogin");
             if (sysUsersLogin == null)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Login" }));
+                context.HttpContext.Response.Redirect("/Home/BackLogin");
+            }
+            else if (sysUsersLogin.UserStatus == 0)
+            {
+                context.HttpContext.Response.Redirect("/Home/BackLogin");
             }
         }
     }

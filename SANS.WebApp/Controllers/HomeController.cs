@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using DInjectionProvider;
 using SANS.WebApp.Data;
 using SANS.WebApp.Comm;
+using SANS.WebApp.Filters;
 
 namespace SANS.WebApp.Controllers
 {
@@ -41,6 +42,10 @@ namespace SANS.WebApp.Controllers
         {
             return View();
         }
-
+        [NoVerificationLogin]
+        public IActionResult BackLogin()
+        {
+            return View();
+        }
     }
 }

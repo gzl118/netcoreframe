@@ -11,6 +11,6 @@ namespace SANS.DbEntity.Models
         /// <summary>
         /// 权限对应的菜单
         /// </summary>
-        public SysMenu sysMenu { set; get; }
+        public SysMenu SysMenu { set; get; }
     }
 }
