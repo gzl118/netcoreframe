@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-antiforgery="true" asp-controller="Login" asp-action="Login">
+    User name: <input name="username" type="text" />
+    Password: <input name="userpwd" type="password" />
+    <input name="submit" value="Login" type="submit" />
+    <input type="hidden" name="returnUrl" value="@TempData["returnUrl"]" />
+</form>
+
